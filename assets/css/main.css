@@ -4,3 +4,10 @@
 .modal-login{
     border-radius: 13px !important;
 }
+.el-tabs__nav {
+    display: flex;
+    justify-content: center !important;  /* Căn giữa các phần tử theo chiều ngang */
+    align-items: center !important;      /* Căn giữa các phần tử theo chiều dọc */
+    position: relative !important;
+  float: none !important;
+}

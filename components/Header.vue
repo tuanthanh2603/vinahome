@@ -28,7 +28,7 @@ const handleLogin = () => {
     <!-- Logo Section -->
     <div class="flex items-center">
       <img
-          src="/static/logo-2.png"
+          src="/static/logo.png"
           alt="Logo"
           class="w-40"
       />
