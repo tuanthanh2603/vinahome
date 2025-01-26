@@ -284,7 +284,7 @@ const isToday = (day: number) => {
         </div>
         <div v-if="isActivePointDown"
           class="absolute bg-white border border-gray-300 rounded-md shadow-md mt-[140px] p-4 w-[220px] z-10">
-          aaaa
+          aaab
         </div>
       </div>
 
