@@ -11,3 +11,14 @@
     position: relative !important;
   float: none !important;
 }
+
+.el-tabs__content{
+    overflow: initial !important;
+}
+.el-select__wrapper{
+    box-shadow: none !important;
+    padding: 0 !important;
+}
+.el-select__suffix{
+    display: none !important;
+}

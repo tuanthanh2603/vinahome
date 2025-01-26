@@ -23,7 +23,7 @@ const handleLogin = () => {
 </script>
 
 <template>
-  <nav class="bg-[#0072bc] shadow-md h-16 w-full">
+  <nav class="bg-[#0072bc] shadow-md h-16 w-full ">
     <div class="container mx-auto flex items-center justify-between px-4 h-full">
     <!-- Logo Section -->
     <div class="flex items-center">
