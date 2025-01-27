@@ -22,3 +22,10 @@
 .el-select__suffix{
     display: none !important;
 }
+body {
+    overflow-x: hidden;
+  }
+.el-main {
+    padding: 0px !important;
+    width: 100%;
+}

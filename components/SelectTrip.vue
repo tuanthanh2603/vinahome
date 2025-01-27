@@ -238,7 +238,7 @@ const isToday = (day: number) => {
 
 
 
-
+const locations = ["Bình Dương", "Đồng Nai", "TP. HCM"];
 </script>
 
 <!-- filepath: /Users/tuanthanh/Desktop/vinahome/components/SelectTrip.vue -->
@@ -261,9 +261,15 @@ const isToday = (day: number) => {
           </div>
 
           <div v-if="isActivePointUp"
-            class="absolute bg-white border border-gray-300 rounded-md shadow-md mt-[415px] p-4 w-[220px] z-10">
+            class="absolute bg-white border border-gray-300 rounded-md shadow-md mt-[395px] p-1 w-[220px] z-10">
             <el-scrollbar height="300px">
-              <p v-for="item in 20" :key="item" class="scrollbar-demo-item">{{ item }}</p>
+              <span class="text-[12px] text-gray-400 mb-[2px] mx-[2px]">Địa điểm phổ biến</span>
+              <ul class="bg-white divide-y divide-gray-200">
+                <li v-for="(location, index) in locations" :key="index"
+                  class="p-1 hover:bg-blue-100 cursor-pointer text-gray-700 font-medium">
+                  {{ location }}
+                </li>
+              </ul>
             </el-scrollbar>
           </div>
         </div>
@@ -283,8 +289,16 @@ const isToday = (day: number) => {
           </div>
         </div>
         <div v-if="isActivePointDown"
-          class="absolute bg-white border border-gray-300 rounded-md shadow-md mt-[140px] p-4 w-[220px] z-10">
-          aaab
+          class="absolute bg-white border border-gray-300 rounded-md shadow-md mt-[395px] p-1 w-[220px] z-10">
+          <el-scrollbar height="300px">
+              <span class="text-[12px] text-gray-400 mb-[2px] mx-[2px]">Địa điểm phổ biến</span>
+              <ul class="bg-white divide-y divide-gray-200">
+                <li v-for="(location, index) in locations" :key="index"
+                  class="p-1 hover:bg-blue-100 cursor-pointer text-gray-700 font-medium">
+                  {{ location }}
+                </li>
+              </ul>
+            </el-scrollbar>
         </div>
       </div>
 
