@@ -4,15 +4,16 @@
 
 <template>
   <el-container>
-    <el-header>
-      <Header/>
+    <el-header class="sticky top-0 z-50 w-full">
+      <Header />
     </el-header>
     <el-main>
-      <slot/>
+      <slot />
     </el-main>
+    <e-footer>
+      <Footer />
+    </e-footer>
   </el-container>
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>
