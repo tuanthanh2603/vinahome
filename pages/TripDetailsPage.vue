@@ -137,27 +137,27 @@
   .page-container {
     padding: 1rem;
     background: #f9f9f9;
+    margin-left: 10%;
+    margin-right: 10%;
   }
   
-  /* Khung ngoài màu xám */
   .search-card {
-    background: #d3d3d3; /* Màu xám */
+    background: #d3d3d3; 
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   }
   
-  /* Khung bên trong */
   .inner-border {
-    background: #e0e0e0;
+    background: white;
     padding: 10px;
     border-radius: 6px;
   }
   
-  /* Khung trong màu trắng */
   .search-body {
     background: white;
     border-radius: 8px;
     padding: 15px 20px;
+    text-align: center;
   }
   
   .search-container {
@@ -208,7 +208,7 @@
   }
   
   .search-container > .el-col {
-    padding: 0 5px; /* Khoảng cách giữa các phần tử */
+    padding: 0 5px; 
   }
   
   .search-button-container {
@@ -221,10 +221,10 @@
     color: white;
     font-weight: bold;
     padding: 10px;
-    width: 100%; /* Đảm bảo nút kéo dài toàn bộ cột khi xuống dòng */
+    width: 100%; 
   }
   
-  /* Danh sách chuyến xe */
+
   .bus-list {
     display: flex;
     flex-direction: column;
