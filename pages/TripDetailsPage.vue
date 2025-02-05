@@ -1,21 +1,22 @@
 <template>
   <div class="min-h-screen bg-gray-100 mx-[10%] my-[3%] p-4">
     <!-- Header -->
-    <div class="bg-white py-4 px-6 shadow-md">
+    <div class="bg-white py-6 px-8 shadow-md">
       <div class="flex justify-between items-center">
         <div>
-          <h1 class="text-lg font-semibold">
+          <h1 class="text-2xl font-bold">
             {{ search.from }} → {{ search.to }}
           </h1>
-          <p class="text-sm text-gray-500">
-            {{ formattedDate }} | {{ search.seats }} seat{{ search.seats > 1 ? 's' : '' }}
+          <p class="text-base text-gray-600">
+            {{ formattedDate }} | {{ search.seats }} ghế
           </p>
         </div>
-        <button class="bg-blue-500 text-white px-4 py-2 rounded-lg text-sm" @click="toggleSearchForm">
-          {{ showSearchForm ? "Hide Search" : "Change Search" }}
+        <button class="bg-blue-500 text-white px-5 py-3 rounded-lg text-base font-medium" @click="toggleSearchForm">
+          {{ showSearchForm ? "Ẩn" : "Thay Đổi" }}
         </button>
       </div>
     </div>
+
 
     <!-- Search Form -->
     <div v-if="showSearchForm" class="bg-white mt-[3%] p-6 rounded-lg shadow-md">
@@ -108,7 +109,7 @@
         </div>
 
         <!-- Tab Section -->
-        <el-tabs v-model:activeName="activeTab" @tab-click="handleTabClick">
+        <el-tabs>
           <el-tab-pane label="Đặc điểm" name="features">
             <div class="flex items-center gap-4">
               <!-- Features -->
@@ -133,15 +134,11 @@
 
               <!-- Image -->
               <div class="w-1/3">
-                <img
-                  :src="ticket.image"
-                  alt="Bus image"
-                  class="w-full h-32 object-cover rounded-lg"
-                />
+                <img :src="ticket.image" alt="Bus image" class="w-full h-60 object-cover rounded-lg"/>
               </div>
             </div>
           </el-tab-pane>
-          <el-tab-pane label="Chuyến" name="trip"> </el-tab-pane>
+          <el-tab-pane label="Tuyến" name="route"> </el-tab-pane>
           <el-tab-pane label="Vé" name="ticket"> </el-tab-pane>
         </el-tabs>
       </div>
@@ -218,7 +215,7 @@ const tickets = ref([
     facilities: ["WiFi", "Water", "Recliner"],
     reschedulePolicy: "Not Available",
     refundPolicy: "Non Refundable",
-    image: "path-to-image.jpg",
+    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS93cI8ferYisAqC0khpCrusVmONrvbZ83U6Q&s",
   },
   {
     id: 2,
@@ -234,7 +231,7 @@ const tickets = ref([
     facilities: ["Air Conditioning", "Charging Ports", "Water"],
     reschedulePolicy: "Available",
     refundPolicy: "Non Refundable",
-    image: "path-to-image2.jpg",
+    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSu_KEtnh7oIR0Sqs8JrS7sP7q4a2CKUr9IGQ&s",
   },
   {
     id: 3,
@@ -250,7 +247,7 @@ const tickets = ref([
     facilities: ["WiFi", "Recliner", "Charging Ports"],
     reschedulePolicy: "Available with fee",
     refundPolicy: "Non Refundable",
-    image: "path-to-image3.jpg",
+    image: "https://product.hstatic.net/200000230193/product/z3994388647966_b41e035fb13ced818071216f85762938_2721e9830ec2419fa3752e5e189dea92_master.jpg",
   },
   {
     id: 4,
@@ -266,7 +263,7 @@ const tickets = ref([
     facilities: ["WiFi", "Air Conditioning", "Water"],
     reschedulePolicy: "Available",
     refundPolicy: "Non Refundable",
-    image: "path-to-image4.jpg",
+    image: "https://drive.gianhangvn.com/image/bang-gia-xe-khach-thaco-thang-11-2024-2749060j30270x16.jpg",
   },
   {
     id: 5,
@@ -282,7 +279,7 @@ const tickets = ref([
     facilities: ["WiFi", "Recliner", "Snack"],
     reschedulePolicy: "Not Available",
     refundPolicy: "Non Refundable",
-    image: "path-to-image5.jpg",
+    image: "https://motortrip.vn/wp-content/uploads/2022/08/xe-khach-ha-noi-my-tho-tien-giang-4.jpg",
   },
   {
     id: 6,
@@ -298,7 +295,7 @@ const tickets = ref([
     facilities: ["WiFi", "Water", "Charging Ports"],
     reschedulePolicy: "Available with fee",
     refundPolicy: "Non Refundable",
-    image: "path-to-image6.jpg",
+    image: "https://hyundaimiennam.com/wp-content/uploads/2023/12/Xe-Khach-Hyundai-County-29-cho.jpg",
   },
   {
     id: 7,
@@ -314,19 +311,18 @@ const tickets = ref([
     facilities: ["WiFi", "Water", "Recliner", "Charging Ports"],
     reschedulePolicy: "Available",
     refundPolicy: "Non Refundable",
-    image: "path-to-image7.jpg",
+    image: "https://cdn.xanhsm.com/2024/12/4d78572c-nha-xe-dung-le-thumb.jpg",
   },
-
 ]);
 
-
-const activeTab = ref('');  
-const handleTabClick = (tab: { name: string }) => {
-  if (activeTab.value === tab.name) {
-    activeTab.value = '';  
-  } else {
-    activeTab.value = tab.name; 
-  }
-};
-
 </script>
+
+<style >
+.el-tabs__header {
+  display: flex;
+  margin-top: 1%;
+  flex-direction: column; 
+  align-items: flex-start; 
+  width: auto; 
+}
+</style>
