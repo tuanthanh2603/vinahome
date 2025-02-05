@@ -62,7 +62,6 @@
       </div>
 
       <!-- Ticket List -->
-      <!-- Ticket List -->
       <div class="w-3/4 ml-4">
         <div
           v-for="ticket in tickets"
