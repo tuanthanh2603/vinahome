@@ -109,7 +109,7 @@
         </div>
 
         <!-- Tab Section -->
-        <el-tabs>
+        <el-tabs type="card">
           <el-tab-pane label="Đặc điểm" name="features">
             <div class="flex items-center gap-4">
               <!-- Features -->
