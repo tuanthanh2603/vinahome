@@ -223,10 +223,7 @@ const filteredTickets = computed(() => {
   });
 });
 
-// Watch để log kết quả mỗi khi `filteredTickets` thay đổi
-watchEffect(() => {
-  console.log("Danh sách vé sau khi lọc:", filteredTickets.value);
-});
+
 
 const tickets = ref([
   {
@@ -357,6 +354,11 @@ const tickets = ref([
   },
 ]);
 
+
+// Watch để log kết quả mỗi khi `filteredTickets` thay đổi
+watchEffect(() => {
+  console.log("Danh sách vé sau khi lọc:", filteredTickets.value);
+});
 </script>
 
 <style >
