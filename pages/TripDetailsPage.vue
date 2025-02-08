@@ -81,7 +81,7 @@
     <!-- Ticket List -->
     <div class="w-3/4 ml-4">
       <div
-        v-for="ticket in tickets"
+        v-for="ticket in filteredTickets"
         :key="ticket.id"
         class="bg-white mb-6 p-6 rounded-lg shadow-md"
       >
@@ -170,12 +170,12 @@ const applySearch = () => {
 };
 
 const filters = ref({
-  "Select boarding point": ["VP Tan Binh", "Ben Xe Mien Dong"],
-  "Select arrival point": ["Da Lat Center", "Phuong Trang Office"],
-  "Departure Time": ["Morning", "Afternoon", "Evening"],
-  "Arrival Time": ["Morning", "Afternoon", "Evening"],
-  "Facilities": ["WiFi", "Water", "Recliner"],
-  "Seat Arrangement": ["Sleeper", "Seater"],
+  "Chọn điểm lên": ["VP Tân Bình", "Bến xe miền đông"],
+  "Chọn điểm đến": ["Đà Lạt Center", "Phương Trang Office"],
+  "Giờ khởi hành": ["Sáng", "Chiều", "Tối"],
+  "Thời gian đến": ["Sáng", "Chiều", "Tối"],
+  "Cơ sở vật chất": ["WiFi", "Nước", "Ghế ngả","Máy lạnh","Cổng sạc"],
+  "Sắp xếp chỗ ngồi": ["Ghế ngủ", "Ghế ngồi"],
 });
 
 // Trạng thái mở/đóng của từng phần bộ lọc
@@ -185,8 +185,9 @@ const isOpen = ref(
 
 // Trạng thái bộ lọc đã chọn
 const selectedFilters = ref(
-  Object.fromEntries(Object.keys(filters.value).map((key) => [key, []]))
+  Object.fromEntries(Object.keys(filters.value).map((key) => [key, [] as string[]]))
 );
+
 
 // Hàm mở/đóng dropdown
 const toggleDropdown = (key: string | number) => {
@@ -200,6 +201,30 @@ const resetFilters = () => {
   });
 };
 
+// Hàm filter card
+const filteredTickets = computed(() => {
+  return tickets.value.filter(ticket => {
+    return Object.keys(selectedFilters.value).every((filterKey) => {
+      const selectedValues = selectedFilters.value[filterKey] ?? [];
+      if (!selectedValues.length) return true;
+
+      if (filterKey === "Cơ sở vật chất") {
+        return selectedValues.every(facility => ticket.facilities.includes(facility));
+      }
+      if (filterKey === "Chọn điểm lên") {
+        return selectedValues.includes(ticket.pickupPoint);
+      }
+      if (filterKey === "Chọn điểm đến") {
+        return selectedValues.includes(ticket.dropoffPoint);
+      }
+
+      return selectedValues.includes(ticket[filterKey as keyof typeof ticket] as string);
+    });
+  });
+});
+
+
+
 const tickets = ref([
   {
     id: 1,
@@ -209,10 +234,12 @@ const tickets = ref([
     duration: "7h 10m",
     price: "275,400",
     seats: 36,
-    busType: "Limousine 36 giường",
+    busType: "Limousine 36 Beds",
     totalSeats: 36,
     seatLayout: "2-2",
-    facilities: ["WiFi", "Water", "Recliner"],
+    facilities: ["WiFi", "Nước", "Ghế ngả"],
+    pickupPoint: "VP Tân Bình",
+    dropoffPoint: "Đà Lạt Center",
     reschedulePolicy: "Not Available",
     refundPolicy: "Non Refundable",
     image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS93cI8ferYisAqC0khpCrusVmONrvbZ83U6Q&s",
@@ -225,10 +252,12 @@ const tickets = ref([
     duration: "7h 0m",
     price: "320,000",
     seats: 40,
-    busType: "Standard 40 seats",
+    busType: "Standard 40 Seats",
     totalSeats: 40,
     seatLayout: "2-2",
-    facilities: ["Air Conditioning", "Charging Ports", "Water"],
+    facilities: ["Máy lạnh", "Cổng sạc", "Nước"],
+    pickupPoint: "Bến xe miền đông",
+    dropoffPoint: "Đà Lạt Center",
     reschedulePolicy: "Available",
     refundPolicy: "Non Refundable",
     image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSu_KEtnh7oIR0Sqs8JrS7sP7q4a2CKUr9IGQ&s",
@@ -244,7 +273,9 @@ const tickets = ref([
     busType: "Luxury 45 seats",
     totalSeats: 45,
     seatLayout: "2-2",
-    facilities: ["WiFi", "Recliner", "Charging Ports"],
+    facilities: ["WiFi", "Nước", "Ghế ngả"],
+    pickupPoint: "VP Tân Bình",
+    dropoffPoint: "Đà Lạt Center",
     reschedulePolicy: "Available with fee",
     refundPolicy: "Non Refundable",
     image: "https://product.hstatic.net/200000230193/product/z3994388647966_b41e035fb13ced818071216f85762938_2721e9830ec2419fa3752e5e189dea92_master.jpg",
@@ -260,7 +291,9 @@ const tickets = ref([
     busType: "Standard 50 seats",
     totalSeats: 50,
     seatLayout: "2-2",
-    facilities: ["WiFi", "Air Conditioning", "Water"],
+    facilities: ["Máy lạnh"],
+    pickupPoint: "Bến xe miền đông",
+    dropoffPoint: "Phương Trang Office",
     reschedulePolicy: "Available",
     refundPolicy: "Non Refundable",
     image: "https://drive.gianhangvn.com/image/bang-gia-xe-khach-thaco-thang-11-2024-2749060j30270x16.jpg",
@@ -276,7 +309,9 @@ const tickets = ref([
     busType: "VIP 30 seats",
     totalSeats: 30,
     seatLayout: "1-1",
-    facilities: ["WiFi", "Recliner", "Snack"],
+    facilities: ["WiFi", "Nước"],
+    pickupPoint: "VP Tân Bình",
+    dropoffPoint: "Phương Trang Office",
     reschedulePolicy: "Not Available",
     refundPolicy: "Non Refundable",
     image: "https://motortrip.vn/wp-content/uploads/2022/08/xe-khach-ha-noi-my-tho-tien-giang-4.jpg",
@@ -292,7 +327,9 @@ const tickets = ref([
     busType: "Standard 40 seats",
     totalSeats: 40,
     seatLayout: "2-2",
-    facilities: ["WiFi", "Water", "Charging Ports"],
+    facilities: [ "Cổng sạc"],
+    pickupPoint: "Bến xe miền đông",
+    dropoffPoint: "Đà Lạt Center",
     reschedulePolicy: "Available with fee",
     refundPolicy: "Non Refundable",
     image: "https://hyundaimiennam.com/wp-content/uploads/2023/12/Xe-Khach-Hyundai-County-29-cho.jpg",
@@ -308,7 +345,9 @@ const tickets = ref([
     busType: "Luxury 48 seats",
     totalSeats: 48,
     seatLayout: "2-2",
-    facilities: ["WiFi", "Water", "Recliner", "Charging Ports"],
+    facilities: ["WiFi", "Nước", "Ghế ngả","Cổng sạc"],
+    pickupPoint: "VP Tân Bình",
+    dropoffPoint: "Phương Trang Office",
     reschedulePolicy: "Available",
     refundPolicy: "Non Refundable",
     image: "https://cdn.xanhsm.com/2024/12/4d78572c-nha-xe-dung-le-thumb.jpg",
