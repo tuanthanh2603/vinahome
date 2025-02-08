@@ -223,7 +223,10 @@ const filteredTickets = computed(() => {
   });
 });
 
-
+// Watch để log kết quả mỗi khi `filteredTickets` thay đổi
+watchEffect(() => {
+  console.log("Danh sách vé sau khi lọc:", filteredTickets.value);
+});
 
 const tickets = ref([
   {
@@ -237,7 +240,7 @@ const tickets = ref([
     busType: "Limousine 36 Beds",
     totalSeats: 36,
     seatLayout: "2-2",
-    facilities: ["WiFi", "Nước", "Ghế ngả"],
+    facilities: ["WiFi", "Ghế ngả"],
     pickupPoint: "VP Tân Bình",
     dropoffPoint: "Đà Lạt Center",
     reschedulePolicy: "Not Available",
