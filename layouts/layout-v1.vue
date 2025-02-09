@@ -5,7 +5,7 @@ import MenuAccountCustomer from "~/components/customer/MenuAccountCustomer.vue";
 <template>
   <div>
     <el-container class="bg-gray-100  p-10">
-      <el-container style="margin-left: 20%; margin-right: 20%;">
+      <el-container style="margin-left: 15%; margin-right: 15%;">
         <el-aside>
           <MenuAccountCustomer />
         </el-aside>

@@ -1,5 +1,6 @@
 <template>
-  <div class="p-6 bg-white rounded-lg shadow max-w-5xl mx-auto">
+  <h1 class="text-2xl font-bold mb-4">Thông tin khách hàng</h1>
+  <div class="p-6 bg-white rounded-lg shadow max-w-6xl mx-auto">
     <div class="flex items-center mb-6">
       <img
         src="https://via.placeholder.com/100"
@@ -13,15 +14,15 @@
       <div class="space-y-6">
         <div>
           <label class="block text-lg font-medium mb-2">Họ và tên</label>
-          <input type="text" class="w-5/6 border border-gray-300 rounded p-2 font-medium text-lg" placeholder="Khách hàng" />
+          <input v-model="customer.name" type="text" class="w-5/6 border border-gray-300 rounded p-2 font-medium text-lg" placeholder="Khách hàng" />
         </div>
         <div>
           <label class="block text-lg font-medium mb-2">Ngày sinh</label>
-          <input type="date" class="w-5/6 border border-gray-300 rounded p-2 font-medium text-lg" />
+          <input v-model="customer.birthdate" type="date" class="w-5/6 border border-gray-300 rounded p-2 font-medium text-lg" />
         </div>
         <div>
           <label class="block text-lg font-medium mb-2">Giới tính</label>
-          <select class="w-5/6 border border-gray-300 rounded p-2 font-medium text-lg">
+          <select v-model="customer.gender" class="w-5/6 border border-gray-300 rounded p-2 font-medium text-lg">
             <option value="male">Nam</option>
             <option value="female">Nữ</option>
             <option value="other">Khác</option>
@@ -34,12 +35,12 @@
       <div class="space-y-6">
         <div>
           <label class="block text-lg font-medium mb-2">Số điện thoại</label>
-          <p class="w-3/4 border border-transparent rounded p-2 font-medium text-lg">***** *** 505</p>
+          <p class="w-3/4 border border-transparent rounded p-2 font-medium text-lg">{{ maskedPhone }}</p>
         </div>
         <div>
           <label class="block text-lg font-medium mb-2">Email</label>
           <div class="flex items-center justify-between">
-            <p class="w-3/4 border border-transparent rounded p-2 mr-2 font-medium text-lg">Email của bạn</p>
+            <p class="w-3/4 border border-transparent rounded p-2 mr-2 font-medium text-lg">{{ customer.email }}</p>
             <button class="text-blue-500 hover:underline font-medium text-lg">Cập nhật</button>
           </div>
         </div>
@@ -58,6 +59,22 @@
   </div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { ref, computed } from 'vue';
+
+const customer = ref({
+  name: 'Nguyễn Văn A',
+  birthdate: '1990-05-15',
+  gender: 'male',
+  phone: '0982460352',
+  email: 'nguyenvana@example.com',
+  password: '********'
+});
+
+const maskedPhone = computed(() => {
+  return customer.value.phone.replace(/(\d{3})\d{4}(\d{1})(\d{2})/, '*** **** *$3');
+});
+
+</script>
 
 <style scoped></style>
