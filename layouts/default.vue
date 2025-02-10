@@ -1,5 +1,11 @@
 <script setup lang="ts">
 
+const userStore = useUserStore();
+
+onMounted(() => {
+  userStore.loadUserData();
+});
+
 </script>
 
 <template>

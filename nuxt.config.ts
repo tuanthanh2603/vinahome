@@ -5,12 +5,22 @@ export default defineNuxtConfig({
   ssr: true,
   css: ['~/assets/css/main.css', '~/assets/scss/main.scss'],
   modules: [
-    '@nuxtjs/tailwindcss', '@pinia/nuxt',
+    '@nuxtjs/tailwindcss',
+    '@pinia/nuxt',
+    'nuxt-vue3-google-signin'
   ],
+
+  googleSignIn: {
+    clientId: '704001333674-28enifu6eje8ninqplmov13crgdfq1o2.apps.googleusercontent.com',
+  },
+
+
+
 
   runtimeConfig: {
     public: {
-      apiUrl: process.env.API_URL || 'http://localhost:8080',
+      apiUrl: "http://localhost:8080",
+
     },
   },
 
@@ -21,6 +31,11 @@ export default defineNuxtConfig({
       charset: 'utf-8',
       viewport: 'width=device-width, initial-scale=1',
       meta: [
+        {
+          hid: "csp",
+          httpEquiv: "Content-Security-Policy",
+          content: "img-src 'self' https://lh3.googleusercontent.com;"
+        },
         {
           name: "description",
           content: "VinaHome"
