@@ -2,15 +2,13 @@
 definePageMeta({
   layout: 'default'
 });
-
+import MenuAccountCustomer from "~/components/customer/ContentAccountCustomer.vue"
 </script>
 
 <template>
   <NuxtLayout name="layout-v1">
-    <h1>Hiển thị thông tin khách hàng</h1>
+    <MenuAccountCustomer/>
   </NuxtLayout>
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>
