@@ -2,11 +2,8 @@
   <h1 class="text-2xl font-bold mb-4">Thông tin khách hàng</h1>
   <div class="p-6 bg-white rounded-lg shadow max-w-6xl mx-auto">
     <div class="flex items-center mb-6">
-      <img
-        src="https://via.placeholder.com/100"
-        alt="Profile Picture"
-        class="rounded-full w-24 h-24 mr-6 border border-gray-300"
-      />
+      <img :src="customer.avatar || 'https://i.pinimg.com/originals/c6/e5/65/c6e56503cfdd87da299f72dc416023d4.jpg'" alt="Profile Picture"
+        class="rounded-full w-26 h-24 mr-6 border border-gray-300" />
       <button class="bg-blue-500 text-white px-4 py-2 rounded shadow font-medium text-lg">Cập nhật ảnh mới</button>
     </div>
     <div class="grid grid-cols-1 md:grid-cols-[1fr_auto_1fr] gap-8 items-center">
@@ -14,11 +11,13 @@
       <div class="space-y-6">
         <div>
           <label class="block text-lg font-medium mb-2">Họ và tên</label>
-          <input v-model="customer.name" type="text" class="w-5/6 border border-gray-300 rounded p-2 font-medium text-lg" placeholder="Khách hàng" />
+          <input v-model="customer.name" type="text"
+            class="w-5/6 border border-gray-300 rounded p-2 font-medium text-lg" placeholder="Khách hàng" />
         </div>
         <div>
           <label class="block text-lg font-medium mb-2">Ngày sinh</label>
-          <input v-model="customer.birthdate" type="date" class="w-5/6 border border-gray-300 rounded p-2 font-medium text-lg" />
+          <input v-model="customer.birthdate" type="date"
+            class="w-5/6 border border-gray-300 rounded p-2 font-medium text-lg" />
         </div>
         <div>
           <label class="block text-lg font-medium mb-2">Giới tính</label>
@@ -68,7 +67,8 @@ const customer = ref({
   gender: 'male',
   phone: '0982460352',
   email: 'nguyenvana@example.com',
-  password: '********'
+  password: '********',
+  avatar: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRDI5h1MYhsDtHz8OHPTEKVBc_unp6tPtUOr6ym1E_azguPoUl-jsT4K0KmNQQYsfRalMo&usqp=CAU',
 });
 
 const maskedPhone = computed(() => {
