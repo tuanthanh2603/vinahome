@@ -7,8 +7,7 @@
       <div class="flex flex-col items-center mr-6">
         <p class="block text-m font-medium mb-2">Ảnh đại diện</p>
         <div class="relative w-24 h-24 border border-gray-300 rounded-full overflow-hidden">
-          <img :src="customer.avatar || defaultAvatar" alt="Profile Picture"
-            class="w-full h-full object-cover" />
+          <img :src="customer.avatar || defaultAvatar" alt="Profile Picture" class="w-full h-full object-cover" />
         </div>
       </div>
       <!-- Nút cập nhật & thông tin định dạng -->
@@ -70,13 +69,21 @@
       </div>
     </div>
     <div class="mt-8 flex justify-end">
-      <button class="bg-gray-200 text-white px-6 py-2 rounded shadow font-medium text-lg">Lưu thay đổi</button>
+      <button :class="{ 'bg-blue-500 text-white': isChanged, 'bg-gray-200 text-gray-400 cursor-not-allowed': !isChanged }"
+        :disabled="!isChanged" @click="saveChanges" class="px-6 py-2 rounded shadow font-medium text-lg">
+        Lưu thay đổi
+      </button>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref, computed } from 'vue';
+const defaultAvatar = 'https://i.pinimg.com/originals/c6/e5/65/c6e56503cfdd87da299f72dc416023d4.jpg';
+
+const maskedPhone = computed(() => {
+  return customer.value.phone.replace(/(\d{3})\d{4}(\d{1})(\d{2})/, '*** **** *$3');
+});
 
 const customer = ref({
   name: 'Nguyễn Văn A',
@@ -88,7 +95,7 @@ const customer = ref({
   avatar: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRDI5h1MYhsDtHz8OHPTEKVBc_unp6tPtUOr6ym1E_azguPoUl-jsT4K0KmNQQYsfRalMo&usqp=CAU',
 });
 
-const defaultAvatar = 'https://i.pinimg.com/originals/c6/e5/65/c6e56503cfdd87da299f72dc416023d4.jpg';
+
 const fileInput = ref<HTMLInputElement | null>(null);
 const triggerFileInput = () => {
   fileInput.value?.click();
@@ -102,9 +109,18 @@ const updateAvatar = (event: Event) => {
   }
 };
 
-const maskedPhone = computed(() => {
-  return customer.value.phone.replace(/(\d{3})\d{4}(\d{1})(\d{2})/, '*** **** *$3');
-});
+
+const isChanged = ref(false);
+const originalCustomer = ref({ ...customer.value });
+const checkChanges = () => {
+  isChanged.value = JSON.stringify(customer.value) !== JSON.stringify(originalCustomer.value);
+};
+const saveChanges = () => {
+  originalCustomer.value = { ...customer.value };
+  isChanged.value = false;
+};
+watch(customer, checkChanges, { deep: true });
+
 
 </script>
 
