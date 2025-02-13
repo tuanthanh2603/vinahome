@@ -1,28 +1,43 @@
 <template>
   <h1 class="text-2xl font-bold mb-4">Thông tin khách hàng</h1>
+
   <div class="p-6 bg-white rounded-lg shadow max-w-6xl mx-auto">
     <div class="flex items-center mb-6">
-      <img
-        src="https://via.placeholder.com/100"
-        alt="Profile Picture"
-        class="rounded-full w-24 h-24 mr-6 border border-gray-300"
-      />
-      <button class="bg-blue-500 text-white px-4 py-2 rounded shadow font-medium text-lg">Cập nhật ảnh mới</button>
+      <!-- Ảnh đại diện -->
+      <div class="flex flex-col items-center mr-6">
+        <p class="block text-m font-medium mb-2">Ảnh đại diện</p>
+        <div class="relative w-24 h-24 border border-gray-300 rounded-full overflow-hidden">
+          <img :src="customer.avatar || defaultAvatar" alt="Profile Picture" class="w-full h-full object-cover" />
+        </div>
+      </div>
+      <!-- Nút cập nhật & thông tin định dạng -->
+      <div class="flex flex-col">
+        <input type="file" @change="updateAvatar" accept="image/jpeg, image/png" class="hidden" ref="fileInput" />
+        <button @click="triggerFileInput"
+          class="bg-gray-300 text-black px-5 py-3 rounded-lg shadow font-medium text-lg mb-1 text-left">
+          Cập nhật ảnh mới
+        </button>
+        <p class="text-gray-500 text-sm">Dung lượng file tối đa 5 MB.</p>
+        <p class="text-gray-500 text-sm">Định dạng: .JPEG, .PNG</p>
+      </div>
     </div>
+
     <div class="grid grid-cols-1 md:grid-cols-[1fr_auto_1fr] gap-8 items-center">
       <!-- Cột Trái -->
       <div class="space-y-6">
         <div>
           <label class="block text-lg font-medium mb-2">Họ và tên</label>
-          <input v-model="customer.name" type="text" class="w-5/6 border border-gray-300 rounded p-2 font-medium text-lg" placeholder="Khách hàng" />
+          <input v-model="customer.name" type="text"
+            class="w-5/6 border border-gray-300 rounded p-2 font-medium text-lg rounded-lg" placeholder="Khách hàng" />
         </div>
         <div>
           <label class="block text-lg font-medium mb-2">Ngày sinh</label>
-          <input v-model="customer.birthdate" type="date" class="w-5/6 border border-gray-300 rounded p-2 font-medium text-lg" />
+          <input v-model="customer.birthdate" type="date"
+            class="w-5/6 border border-gray-300 rounded p-2 font-medium text-lg rounded-lg" />
         </div>
         <div>
           <label class="block text-lg font-medium mb-2">Giới tính</label>
-          <select v-model="customer.gender" class="w-5/6 border border-gray-300 rounded p-2 font-medium text-lg">
+          <select v-model="customer.gender" class="w-5/6 border border-gray-300 rounded-lg p-2 font-medium text-lg">
             <option value="male">Nam</option>
             <option value="female">Nữ</option>
             <option value="other">Khác</option>
@@ -54,13 +69,21 @@
       </div>
     </div>
     <div class="mt-8 flex justify-end">
-      <button class="bg-blue-500 text-white px-6 py-2 rounded shadow font-medium text-lg">Lưu thay đổi</button>
+      <button :class="{ 'bg-blue-500 text-white': isChanged, 'bg-gray-200 text-gray-400 cursor-not-allowed': !isChanged }"
+        :disabled="!isChanged" @click="saveChanges" class="px-6 py-2 rounded shadow font-medium text-lg">
+        Lưu thay đổi
+      </button>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref, computed } from 'vue';
+const defaultAvatar = 'https://i.pinimg.com/originals/c6/e5/65/c6e56503cfdd87da299f72dc416023d4.jpg';
+
+const maskedPhone = computed(() => {
+  return customer.value.phone.replace(/(\d{3})\d{4}(\d{1})(\d{2})/, '*** **** *$3');
+});
 
 const customer = ref({
   name: 'Nguyễn Văn A',
@@ -68,12 +91,36 @@ const customer = ref({
   gender: 'male',
   phone: '0982460352',
   email: 'nguyenvana@example.com',
-  password: '********'
+  password: '********',
+  avatar: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRDI5h1MYhsDtHz8OHPTEKVBc_unp6tPtUOr6ym1E_azguPoUl-jsT4K0KmNQQYsfRalMo&usqp=CAU',
 });
 
-const maskedPhone = computed(() => {
-  return customer.value.phone.replace(/(\d{3})\d{4}(\d{1})(\d{2})/, '*** **** *$3');
-});
+
+const fileInput = ref<HTMLInputElement | null>(null);
+const triggerFileInput = () => {
+  fileInput.value?.click();
+};
+const updateAvatar = (event: Event) => {
+  const file = (event.target as HTMLInputElement).files?.[0];
+  if (file && file.size <= 5 * 1024 * 1024) { // Giới hạn 5MB
+    customer.value.avatar = URL.createObjectURL(file);
+  } else {
+    alert("Vui lòng chọn ảnh có dung lượng tối đa 5MB!");
+  }
+};
+
+
+const isChanged = ref(false);
+const originalCustomer = ref({ ...customer.value });
+const checkChanges = () => {
+  isChanged.value = JSON.stringify(customer.value) !== JSON.stringify(originalCustomer.value);
+};
+const saveChanges = () => {
+  originalCustomer.value = { ...customer.value };
+  isChanged.value = false;
+};
+watch(customer, checkChanges, { deep: true });
+
 
 </script>
 

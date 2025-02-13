@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {Headset, ArrowDown, CaretBottom} from "@element-plus/icons-vue";
+import {Headset, ArrowDown, CaretBottom, User} from "@element-plus/icons-vue";
 import type {LoginType} from "~/types/LoginType";
 import {
   useTokenClient,
@@ -75,11 +75,11 @@ const handleLogin = () => {
 </script>
 
 <template>
-  <nav class="bg-[#0072bc] shadow-md h-16 w-full ">
+  <nav class=" h-16 w-full ">
     <div class="container mx-auto flex items-center justify-between px-4 h-full">
       <!-- Logo Section -->
       <div class="flex items-center">
-        <img src="/static/logo.png" alt="Logo" class="w-40"/>
+        <img src="/static/logo-4.png" alt="Logo" class="w-40"/>
       </div>
       <ul class="flex space-x-2">
         <li>
@@ -113,10 +113,10 @@ const handleLogin = () => {
 
         </li>
         <li>
-          <el-button type="warning" :icon="Headset" plain>Hỗ trợ 24/7</el-button>
+          <el-button type="warning" :icon="Headset" plain round>Hỗ trợ 24/7</el-button>
         </li>
         <li v-if="userStore && userStore.userData === null">
-          <el-button type="primary" plain @click="visible = true">Đăng nhập</el-button>
+          <el-button type="primary" :icon="User"  @click="visible = true" round>Đăng nhập</el-button>
         </li>
         <li v-else >
           <el-dropdown trigger="click" class="ml-5">
@@ -199,7 +199,7 @@ const handleLogin = () => {
 
 <style scoped>
 .button-link {
-  color: white;
+  color: black;
 
 }
 
