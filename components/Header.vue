@@ -79,14 +79,22 @@ const handleLogin = () => {
     <div class="container mx-auto flex items-center justify-between px-4 h-full">
       <!-- Logo Section -->
       <div class="flex items-center">
-        <img src="/static/logo-4.png" alt="Logo" class="w-40"/>
+        <NuxtLink to="/">
+          <img src="/static/logo-4.png" alt="Logo" class="w-40"/>
+        </NuxtLink>
+
       </div>
       <ul class="flex space-x-2">
         <li>
-          <el-button text class="button-link">Tra cứu vé</el-button>
+          <NuxtLink to="/tra-cuu-ve">
+            <el-button text class="button-link">Tra cứu vé</el-button>
+          </NuxtLink>
         </li>
         <li>
-          <el-button text class="button-link">Mở bán vé trên VinaHome</el-button>
+          <NuxtLink to="/mo-ban-ve-tren-vinahome">
+            <el-button text class="button-link">Mở bán vé trên VinaHome</el-button>
+          </NuxtLink>
+
         </li>
         <li>
           <el-dropdown>

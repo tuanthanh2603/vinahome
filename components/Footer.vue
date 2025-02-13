@@ -43,7 +43,7 @@
                     </div>
                 </el-col>
                 <el-col :span="4">
-                    <h3 class="text-black font-bold">Theo dõi chúng tôi trên</h3>
+                    <h3 class="text-black font-bold text-lg">Theo dõi chúng tôi trên</h3>
                     <div class="flex flex-col gap-2 m-2">
                         <div class="flex items-center gap-2 ">
                             <img src="/static/footer-social-facebook.svg" alt="Facebook" class="w-6 h-6">
@@ -61,7 +61,7 @@
 
                 </el-col>
                 <el-col :span="4">
-                    <h3 class="text-black font-bold">Tải ứng dụng Vinahome</h3>
+                    <h3 class="text-black font-bold text-lg">Tải ứng dụng Vinahome</h3>
                     <div class="m-2">
                         <img src="/static/app-store.png" alt="App Store" class="w-[150px] my-2" />
                         <img src="/static/gg-play.png" alt="Google Play" class="w-[150px]" />
