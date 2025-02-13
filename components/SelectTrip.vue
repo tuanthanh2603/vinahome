@@ -355,11 +355,7 @@ const locations = ["Bình Dương", "Đồng Nai", "TP. HCM"];
                       {{ day.lunar }}
                     </small>
                   </div>
-
-
-
                 </div>
-
               </div>
 
               <div class="w-1/2">
