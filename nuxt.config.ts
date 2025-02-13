@@ -14,6 +14,9 @@ export default defineNuxtConfig({
       apiUrl: "http://localhost:8080",
     },
   },
+  imports: {
+    dirs: ["./mocks"],
+  },
   app: {
     head: {
       title: "VinaHome",
