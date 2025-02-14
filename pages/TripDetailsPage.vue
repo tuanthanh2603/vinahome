@@ -121,10 +121,12 @@
                   </ul>
                 </div>
                 <div class="w-1/3">
-                  <img :src="ticket.image" alt="Bus image" class="w-full h-64 object-cover rounded-lg"/>
+                  <img :src="ticket.image" alt="Bus image" class="w-full h-64 object-cover rounded-lg" />
                 </div>
               </div>
             </el-tab-pane>
+            <el-tab-pane label="Tuyến" name="route"> </el-tab-pane>
+            <el-tab-pane label="Vé" name="ticket"> </el-tab-pane>
           </el-tabs>
         </div>
       </div>
@@ -158,7 +160,7 @@ const filters = ref({
   "Chọn điểm đến": ["Đà Lạt Center", "Phương Trang Office"],
   "Giờ khởi hành": ["Sáng", "Chiều", "Tối"],
   "Thời gian đến": ["Sáng", "Chiều", "Tối"],
-  "Cơ sở vật chất": ["WiFi", "Nước", "Ghế ngả","Máy lạnh","Cổng sạc"],
+  "Cơ sở vật chất": ["WiFi", "Nước", "Ghế ngả", "Máy lạnh", "Cổng sạc"],
   "Sắp xếp chỗ ngồi": ["Ghế ngủ", "Ghế ngồi"],
 });
 
@@ -311,7 +313,7 @@ const tickets = ref([
     busType: "Standard 40 seats",
     totalSeats: 40,
     seatLayout: "2-2",
-    facilities: [ "Cổng sạc"],
+    facilities: ["Cổng sạc"],
     pickupPoint: "Bến xe miền đông",
     dropoffPoint: "Đà Lạt Center",
     reschedulePolicy: "Available with fee",
@@ -329,7 +331,7 @@ const tickets = ref([
     busType: "Luxury 48 seats",
     totalSeats: 48,
     seatLayout: "2-2",
-    facilities: ["WiFi", "Nước", "Ghế ngả","Cổng sạc"],
+    facilities: ["WiFi", "Nước", "Ghế ngả", "Cổng sạc"],
     pickupPoint: "VP Tân Bình",
     dropoffPoint: "Phương Trang Office",
     reschedulePolicy: "Available",
@@ -345,12 +347,12 @@ watchEffect(() => {
 });
 </script>
 
-<style >
+<style>
 .el-tabs__header {
   display: flex;
   margin-top: 1%;
-  flex-direction: column; 
-  align-items: flex-start; 
-  width: auto; 
+  flex-direction: column;
+  align-items: flex-start;
+  width: auto;
 }
 </style>
