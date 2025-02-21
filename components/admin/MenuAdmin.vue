@@ -10,7 +10,7 @@
       <template #title>
         <span>Danh sách đối tác</span>
       </template>
-      <NuxtLink to="/admin/(danh-sach-doi-tac)/list-bus-company">
+      <NuxtLink to="/admin/list-bus-company">
         <el-menu-item index="1-1">Xe khách</el-menu-item>
       </NuxtLink>
 

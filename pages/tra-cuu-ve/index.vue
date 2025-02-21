@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import {lookUpTicketsList} from "~/mocks/tra-cuu";
+
 const phoneRegex = new RegExp(
   /^(?:\+?\d{1,3}[-.\s]?)?(?:\(?\d{1,4}\)?[-.\s]?)?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}$/
 );
