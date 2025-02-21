@@ -463,6 +463,31 @@ const radio1 = ref('New York')
 
     </div>
 
+    <div class="relative isolate bg-[#03ACFF] rounded-lg mb-10 mt-[200px]">
+      <div class="mx-auto max-w-7xl px-6 lg:px-8 py-10 sm:py-10 lg:py-14">
+        <div class="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 lg:max-w-none lg:grid-cols-2">
+          <div class="max-w-xl lg:max-w-lg">
+            <h2 class="text-4xl font-semibold tracking-tight text-white">Đăng ký nhận bản tin</h2>
+            <p class="mt-4 text-md text-white">Cập nhật ngay những mẹo du lịch mới nhất và ưu đãi hấp dẫn nhất</p>
+            <div class="mt-6 flex max-w-md gap-x-4">
+              <div class="bg-white rounded-lg w-full flex p-1.5">
+                <input id="email-address" name="email" type="email" autocomplete="email" class="w-full outline-none mx-1" placeholder="Nhập địa chỉ email" />
+                <el-button type="primary" size="large">Đăng ký</el-button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Hình ảnh tràn ra ngoài -->
+      <div class="absolute bottom-0 right-[-50px]">
+        <img src="/static/a1.png" class="w-[620px]">
+      </div>
+    </div>
+
+
+
+
 
   </section>
 
