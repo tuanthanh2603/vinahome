@@ -479,7 +479,6 @@ const radio1 = ref('New York')
         </div>
       </div>
 
-      <!-- Hình ảnh tràn ra ngoài -->
       <div class="absolute bottom-0 right-[-50px]">
         <img src="/static/a1.png" class="w-[620px]">
       </div>
