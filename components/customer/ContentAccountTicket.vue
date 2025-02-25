@@ -56,7 +56,7 @@ const tickets = ref([
     code: 'VE123456',
     departure: 'Hà Nội',
     destination: 'Đà Nẵng',
-    busNumber: '29B-12345', // ✅ Thêm số xe
+    busNumber: '29B-12345', 
     date: '2025-03-15',
     time: '08:00 AM',
     seat: '12A',
@@ -68,7 +68,7 @@ const tickets = ref([
     code: 'VE654321',
     departure: 'Hồ Chí Minh',
     destination: 'Nha Trang',
-    busNumber: '51C-67890', // ✅ Thêm số xe
+    busNumber: '51C-67890', 
     date: '2025-04-10',
     time: '01:30 PM',
     seat: '7B',
@@ -80,7 +80,7 @@ const tickets = ref([
     code: 'VE789012',
     departure: 'Hải Phòng',
     destination: 'Đà Lạt',
-    busNumber: '16H-45678', // ✅ Thêm số xe
+    busNumber: '16H-45678', 
     date: '2025-05-20',
     time: '06:00 AM',
     seat: '3C',
