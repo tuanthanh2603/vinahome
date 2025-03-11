@@ -6,32 +6,42 @@ import {
   type AuthCodeFlowSuccessResponse,
   type AuthCodeFlowErrorResponse,
 } from "vue3-google-signin";
-import {loginWithGoogle} from "~/api/accountAPI";
 import {useUserStore} from "~/stores/userStore";
+import {loginWithGoogle} from "~/api/authAPI";
 
 const visible = ref(false)
 
 const handleOnSuccess = async (response: AuthCodeFlowSuccessResponse) => {
+  if (!response?.access_token) {
+    console.error("Error: Access token is missing.");
+    return;
+  }
+
   console.log("Access Token: ", response.access_token);
+
   try {
     const responseData = await loginWithGoogle(response.access_token);
-    console.log("Full Response from Server: ", responseData);
-    const userData = responseData.result;
-    if (userData) {
+    console.log("Full Response from Server: ", responseData?.result);
+
+    if (responseData?.result) {
       const userStore = useUserStore();
-      userStore.setUserData(userData);
+      userStore.setUserData(responseData?.result);
       console.log("User Store Data: ", userStore.userData);
-      visible.value = false;
+
+      if (visible?.value !== undefined) {
+        visible.value = false;
+      }
     } else {
-      console.error("Error: `result` is undefined or null.");
+      console.error("Error: `responseData` is undefined or null.");
     }
   } catch (error) {
     console.error("Error logging in with Google: ", error);
   }
 };
+
 const userStore = useUserStore();
 const avatarUrl = computed(() => {
-  return userStore.userData?.picture || "https://lh3.googleusercontent.com/a/ACg8ocL4qjFlOFZHusCleKf1ikmOQD9pJwZpkUWW9Ja-cCFNIoacmss=s96-c";
+  return userStore.userData?.url_avatar || "";
 });
 const handleLogout = () => {
   userStore.clearUserData();
@@ -133,11 +143,14 @@ const handleLogin = () => {
                   :size="35"
                   :src="avatarUrl"
               />
-              <el-icon class="el-icon--right " style="color: white;"><CaretBottom /></el-icon>
+              <el-icon class="el-icon--right " style="color: black;"><CaretBottom /></el-icon>
             </span>
             <template #dropdown>
               <el-dropdown-menu>
-                <el-dropdown-item>Thông tin tài khoản</el-dropdown-item>
+                <RouterLink to="/account/personal-info">
+                  <el-dropdown-item>Thông tin tài khoản</el-dropdown-item>
+                </RouterLink>
+
                 <el-dropdown-item @click="handleLogout">Đăng xuất</el-dropdown-item>
               </el-dropdown-menu>
             </template>

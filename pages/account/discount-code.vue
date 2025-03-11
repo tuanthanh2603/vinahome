@@ -2,12 +2,13 @@
 definePageMeta({
   layout: 'default'
 });
-import ContentAccountCustomer from "~/components/customer/ContentAccountCustomer.vue"
+
+import ContentAccountComments from "~/components/customer/ContentAccountComments.vue"
 </script>
 
 <template>
   <NuxtLayout name="layout-v1">
-    <ContentAccountCustomer/>
+    <ContentAccountComments/>
   </NuxtLayout>
 </template>
 

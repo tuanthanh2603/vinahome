@@ -2,9 +2,9 @@ export interface UserType {
     id: number;
     name: string;
     email: string;
-    picture: string;
+    url_avatar: string;
     phone: string;
-    accountType: string;
+    account_type: string;
     gender: number;
     birthday: string;
 }

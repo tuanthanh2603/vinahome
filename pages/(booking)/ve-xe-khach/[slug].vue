@@ -48,6 +48,8 @@ const handleClick = (tripId: number, tab: { name: number }) => {
   }
 };
 
+const checked1 = ref(true)
+const checked2 = ref(false)
 </script>
 
 <template>
@@ -73,6 +75,12 @@ const handleClick = (tripId: number, tab: { name: number }) => {
                   Giờ đi
                 </span>
                 </template>
+                <div class="flex flex-col px-4">
+                  <el-checkbox v-model="checked1" label="00:00 - 06:00" size="large" />
+                  <el-checkbox v-model="checked2" label="06:00 - 12:00" size="large" />
+                  <el-checkbox v-model="checked2" label="12:00 - 18:00" size="large" />
+                  <el-checkbox v-model="checked2" label="18:00 - 24:00" size="large" />
+                </div>
                 <div>
 
                 </div>
@@ -203,7 +211,17 @@ const handleClick = (tripId: number, tab: { name: number }) => {
               <el-tabs v-model="activeTabs[trip.id]" class="demo-tabs relative z-0" @tab-click="(tab: any): void => handleClick(trip.id, tab)">
                 <el-tab-pane label="Chọn ghế" :name="1">Sơ đồ ghế</el-tab-pane>
                 <el-tab-pane label="Lịch trình" :name="2">Lịch trình</el-tab-pane>
-                <el-tab-pane label="Trung chuyển" :name="3">Chính sách trung chuyển</el-tab-pane>
+                <el-tab-pane label="Trung chuyển" :name="3">
+                  <div class="p-4">
+                    Đón/ trả tận nơi:
+
+                    - Thời gian nhận khách : Trước 4 tiếng.
+                    - Thời gian xe đón : Chuẩn bị trước 2 -3 tiếng, do mật độ giao thông trong thành phố và sẽ kết hợp đón nhiều điểm khác nhau nên thời gian đón cụ thể tài xế sẽ liên hệ hẹn giờ.
+                    - Hẻm nhỏ xe không quay đầu được : Xe trung chuyển sẽ đón Khách đầu hẻm/ đầu đường.
+                    - Khu vực có biển cấm dừng đỗ xe không đón được : Xe trung chuyển sẽ đón tại vị trí gần nhất có thể.
+                    - Hành lý : Hành lý nhỏ gọn dưới 20 kg, không vận chuyển kèm động vật , thú cưng, không mang đồ có mùi, đồ chảy nước trên xe.nn
+                  </div>
+                </el-tab-pane>
                 <el-tab-pane label="Chính sách" :name="4">Chính sách</el-tab-pane>
               </el-tabs>
 
@@ -227,4 +245,11 @@ const handleClick = (tripId: number, tab: { name: number }) => {
   padding: 0 !important;
   margin: 0 !important;
 }
+.el-collapse-item__content {
+  padding-bottom: 10px !important;
+}
+.el-checkbox.el-checkbox--large .el-checkbox__label{
+  font-size: 15px !important;
+}
+
 </style>
