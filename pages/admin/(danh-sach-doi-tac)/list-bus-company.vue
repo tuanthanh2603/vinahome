@@ -7,6 +7,7 @@ definePageMeta({
 
 import { computed, ref } from 'vue'
 import type {CompanyType} from "~/types/CompanyType";
+import {createCompanyAPI} from "~/api/companyAPI";
 
 
 
@@ -46,7 +47,7 @@ const dialogVisible = ref(false)
 const isEdit = ref(false);
 
 const form = ref<CompanyType>({
-  id: null,
+  id: 0,
   companyName: "",
   phoneNumber: "",
   address: "",
@@ -55,19 +56,13 @@ const form = ref<CompanyType>({
   note: "",
 });
 
-const formRef = ref();
 
-const rules = {
-  name: [{ required: true, message: "Vui lòng nhập tên nhà xe", trigger: "blur" }],
-  phone: [{ required: true, message: "Vui lòng nhập số điện thoại", trigger: "blur" }],
-  address: [{ required: true, message: "Vui lòng nhập địa chỉ", trigger: "blur" }],
-};
 
 
 const handleAddNew = () => {
   isEdit.value = false;
   form.value = {
-    id: null,
+    id: 0,
     companyName: "",
     phoneNumber: "",
     address: "",
@@ -86,12 +81,22 @@ const handleEdit = (index: number, row: CompanyType) => {
   form.value = { ...row };
 };
 
+const formRef = ref();
+
+const rules = {
+  companyName: [{ required: true, message: "Vui lòng nhập tên nhà xe", trigger: "blur" }],
+  phoneNumber: [{ required: true, message: "Vui lòng nhập số điện thoại", trigger: "blur" }],
+  address: [{ required: true, message: "Vui lòng nhập địa chỉ", trigger: "blur" }],
+};
+
 const submitForm = () => {
-  formRef.value?.validate((valid: boolean) => {
+  formRef.value?.validate(async (valid: boolean) => {
     if (valid) {
       if (isEdit.value) {
         ElMessage.success("Cập nhật nhà xe thành công!");
       } else {
+        await createCompanyAPI(form.value);
+        console.log(form.value);
         ElMessage.success("Thêm nhà xe thành công!");
       }
       dialogVisible.value = false;
@@ -140,14 +145,17 @@ const submitForm = () => {
 
     <!-- Form -->
     <el-form :model="form" :rules="rules" ref="formRef" label-width="120px">
-      <el-form-item label="Tên nhà xe" prop="name">
+      <el-form-item label="Tên nhà xe" prop="companyName">
         <el-input v-model="form.companyName" />
       </el-form-item>
-      <el-form-item label="Số điện thoại" prop="phone">
+      <el-form-item label="Số điện thoại" prop="phoneNumber">
         <el-input v-model="form.phoneNumber" />
       </el-form-item>
       <el-form-item label="Địa chỉ" prop="address">
         <el-input v-model="form.address" />
+      </el-form-item>
+      <el-form-item label="Ghi chú" prop="note">
+        <el-input v-model="form.note" />
       </el-form-item>
       <el-form-item label="Trạng thái" prop="status">
         <el-switch v-model="form.status" />

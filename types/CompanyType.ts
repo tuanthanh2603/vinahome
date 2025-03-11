@@ -1,5 +1,5 @@
 export interface CompanyType {
-    id: number | null;
+    id: number;
     address: string;
     companyName: string;
     phoneNumber: string;

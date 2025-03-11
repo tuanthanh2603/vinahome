@@ -9,7 +9,7 @@ import MenuAccountCustomer from "~/components/customer/MenuAccountCustomer.vue";
         <el-aside>
           <MenuAccountCustomer />
         </el-aside>
-        <el-container  class=" p-5">
+        <el-container  class="pl-4">
           <el-main>
             <slot />
           </el-main>
