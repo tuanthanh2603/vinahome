@@ -6,5 +6,6 @@ export interface UserType {
     phone: string;
     account_type: string;
     gender: number;
-    birthday: string;
+    date_birth: string;
+    token: string;
 }
