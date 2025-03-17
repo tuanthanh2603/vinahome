@@ -5,15 +5,18 @@ export default defineNuxtConfig({
   ssr: true,
   css: ["~/assets/css/main.css", "~/assets/scss/main.scss"],
   modules: ["@nuxtjs/tailwindcss", "@pinia/nuxt", "nuxt-vue3-google-signin"],
+
   googleSignIn: {
     clientId:
       "704001333674-28enifu6eje8ninqplmov13crgdfq1o2.apps.googleusercontent.com",
   },
   runtimeConfig: {
     public: {
-      apiUrl: "http://localhost:8080",
+      apiUrl: "",
+      cloudinaryBaseUrl: "https://res.cloudinary.com",
     },
   },
+  
   imports: {
     dirs: ["./mocks"],
   },
@@ -26,7 +29,7 @@ export default defineNuxtConfig({
         {
           hid: "csp",
           "http-equiv": "Content-Security-Policy",
-          content: "img-src 'self' https://lh3.googleusercontent.com;",
+          content: "default-src 'self'; img-src 'self' https://lh3.googleusercontent.com https://res.cloudinary.com data:; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' https://accounts.google.com https://apis.google.com; connect-src 'self' http://localhost:3002 https://api.cloudinary.com;"
         },
         {
           name: "description",
