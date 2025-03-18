@@ -89,10 +89,11 @@ const saveData = async () => {
     loading.value = false;
     dialogVisible.value = false;
     resetForm();
-    isEditing.value = false;
+    
   }
 };
 const resetForm = () => {
+  isEditing.value = false;
   dialogData.value = {
     id: 0,
     name: "",
@@ -111,7 +112,6 @@ const handleClose = (done: () => void) => {
     .then(() => {
       done();
       resetForm();
-      isEditing.value = false;
     })
     .catch(() => {
       // catch error
