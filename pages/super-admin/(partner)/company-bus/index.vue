@@ -27,26 +27,15 @@ const dialogData = ref<BusCompanyType>({
 });
 const tableData = ref<BusCompanyType[]>([]);
 const loading = ref(false);
-const openAddDialog = () => {
-  isEditing.value = false;
-  dialogData.value = {
-    id: 0,
-    name: "",
-    phone: "",
-    address: "",
-    status: false,
-    tax_code: "",
-    code: "",
-    note: "",
-    url_logo: "",
-    created_at: "",
-  };
-  dialogVisible.value = true;
-};
+
 const openEditDialog = (row: BusCompanyType) => {
   isEditing.value = true;
   dialogData.value = { ...row };
   dialogVisible.value = true;
+};
+const router = useRouter();
+const openDetailCompanyBus = (row: BusCompanyType) => {
+  router.push(`/super-admin/company-bus/${row.id}`);
 };
 
 const saveData = async () => {
@@ -89,7 +78,6 @@ const saveData = async () => {
     loading.value = false;
     dialogVisible.value = false;
     resetForm();
-    
   }
 };
 const resetForm = () => {
@@ -149,12 +137,13 @@ onMounted(fetchCompanies);
       <el-table-column prop="address" label="Address" />
       <el-table-column prop="status" label="Status" width="150">
         <template #default="{ row }">
-          <div
-            class="rounded text-white text-center"
-            :class="row.status ? 'bg-green-500' : 'bg-red-500'"
+          <el-tag
+            :type="row.status ? 'success' : 'danger'"
+            class="text-center"
+            disable-transitions
           >
             {{ row.status ? "Đang hoạt động" : "Ngừng hoạt động" }}
-          </div>
+          </el-tag>
         </template>
       </el-table-column>
 
@@ -167,9 +156,17 @@ onMounted(fetchCompanies);
             link
             type="primary"
             size="small"
+            @click="openDetailCompanyBus(row)"
+            >Detail</el-button
+          >
+          <el-button
+            link
+            type="primary"
+            size="small"
             @click="openEditDialog(row)"
             >Edit</el-button
           >
+          
         </template>
       </el-table-column>
     </el-table>

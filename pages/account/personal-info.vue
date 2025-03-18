@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { UserType } from "~/types/UserType";
+import type { UserType } from "~/types/AccountType";
 
 definePageMeta({
   layout: 'default'
