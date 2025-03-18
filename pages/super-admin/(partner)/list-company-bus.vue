@@ -2,9 +2,13 @@
 definePageMeta({
   layout: "superadmin",
 });
-import { ElMessageBox } from "element-plus";
+import { ElMessage, ElMessageBox } from "element-plus";
 import { ref } from "vue";
-import { getCompanyAPI } from "~/api/companyAPI";
+import {
+  createCompanyAPI,
+  getCompanyAPI,
+  updateCompanyAPI,
+} from "~/api/companyAPI";
 import type { BusCompanyType } from "~/types/CompanyType";
 
 const isEditing = ref(false);
@@ -44,25 +48,70 @@ const openEditDialog = (row: BusCompanyType) => {
   dialogData.value = { ...row };
   dialogVisible.value = true;
 };
-const saveData = () => {
-  if (isEditing.value) {
-    // Cập nhật dữ liệu
-    const index = tableData.value.findIndex(
-      (item) => item.code === dialogData.value.code
-    );
-    if (index !== -1) {
-      tableData.value[index] = { ...dialogData.value };
+
+const saveData = async () => {
+  try {
+    loading.value = true;
+    if (isEditing.value) {
+      if (!dialogData.value.id) {
+        ElMessage.error("Không tìm thấy ID của công ty cần cập nhật!");
+        return;
+      }
+
+      const response = await updateCompanyAPI(
+        dialogData.value.id,
+        dialogData.value
+      );
+      if (response.result) {
+        const index = tableData.value.findIndex(
+          (item) => item.id === dialogData.value.id
+        );
+        if (index !== -1) {
+          tableData.value.splice(index, 1, { ...dialogData.value });
+        }
+        ElMessage.success("Cập nhật thành công!");
+      } else {
+        ElMessage.error(response.message || "Lỗi cập nhật dữ liệu!");
+      }
+    } else {
+      const response = await createCompanyAPI(dialogData.value);
+      console.log("Data send to server:", dialogData.value);
+      if (response.result) {
+        tableData.value.push(response.result);
+        ElMessage.success("Thêm mới thành công!");
+      } else {
+        ElMessage.error(response.message || "Lỗi thêm mới dữ liệu!");
+      }
     }
-  } else {
-    // Thêm mới
-    tableData.value.push({ ...dialogData.value });
+  } catch (error) {
+    ElMessage.error("Lỗi hệ thống, vui lòng thử lại!");
+  } finally {
+    loading.value = false;
+    dialogVisible.value = false;
+    resetForm();
+    isEditing.value = false;
   }
-  dialogVisible.value = false;
+};
+const resetForm = () => {
+  dialogData.value = {
+    id: 0,
+    name: "",
+    phone: "",
+    address: "",
+    status: false,
+    tax_code: "",
+    code: "",
+    note: "",
+    url_logo: "",
+    created_at: "",
+  };
 };
 const handleClose = (done: () => void) => {
   ElMessageBox.confirm("Are you sure to close this dialog?")
     .then(() => {
       done();
+      resetForm();
+      isEditing.value = false;
     })
     .catch(() => {
       // catch error
@@ -101,7 +150,7 @@ onMounted(fetchCompanies);
       <el-table-column prop="status" label="Status" width="150">
         <template #default="{ row }">
           <div
-            class="rounded text-white text-center" 
+            class="rounded text-white text-center"
             :class="row.status ? 'bg-green-500' : 'bg-red-500'"
           >
             {{ row.status ? "Đang hoạt động" : "Ngừng hoạt động" }}
@@ -145,8 +194,8 @@ onMounted(fetchCompanies);
       </el-form-item>
       <el-form-item label="Trạng thái">
         <el-select v-model="dialogData.status" placeholder="Chọn trạng thái">
-          <el-option label="Active" :value="true" />
-          <el-option label="Inactive" :value="false" />
+          <el-option label="Hoạt động" :value="true" />
+          <el-option label="Ngưng hoạt động" :value="false" />
         </el-select>
       </el-form-item>
       <el-form-item label="Mã số thuế">
@@ -162,7 +211,7 @@ onMounted(fetchCompanies);
 
     <template #footer>
       <div class="dialog-footer">
-        <el-button @click="dialogVisible = false">Cancel</el-button>
+        <el-button @click="dialogVisible = false">Thoát</el-button>
         <el-button type="primary" @click="saveData">
           {{ isEditing ? "Cập nhật" : "Thêm mới" }}
         </el-button>
