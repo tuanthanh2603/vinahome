@@ -2,7 +2,7 @@
 import {ElMessage} from "element-plus";
 
 definePageMeta({
-  layout: 'admin'
+  layout: 'superadmin'
 });
 
 import { computed, ref } from 'vue'
@@ -118,7 +118,7 @@ const submitForm = () => {
         <template #default="{ row, $index }">
           {{ $index + 1 }}
         </template>
-      </el-table-column>
+      </el-table-column> 
       <el-table-column label="Tên nhà xe" prop="companyName" />
       <el-table-column label="Số điện thoại" prop="phoneNumber" />
       <el-table-column label="Trạng thái" prop="status" />
